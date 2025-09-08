@@ -1,31 +1,46 @@
-read -r -d '' json11 <<EOF
-[
-    {"id": 1, "name": "Ken", "role": "manager", "dob": "2017-01-01"},
-    {"id": 2, "name": "Kenneth", "role": "developer", "dob": "2012-06-07"},
-    {"id": 3, "name": "Kenni", "role": "vice-president", "dob": "2014-11-20"}, 
-    {"id": 4, "name": "Kenny", "role": "director", "dob": "2001-02-27"}, 
-    {"id": 5, "name": "Kenyon", "role": "manager", "dob": "2005-09-15", "b": 100}
-]
-EOF
+jq ' . | map(
+  if has("role") then
+    if (
+        (.role | index("manager")) or         
+        (.role | index("vice-president")) or 
+        (.role | index("director"))
+    ) then
+      "OK: role matches expected value"
+    else
+      "Value mismatch: role=" + (.role|tostring)
+    end
+  else
+    error("Missing key: role")
+  end) | if all(. == "OK: role matches expected value") then "OK" else "Not OK" end
+' users.json
 
-read -r -d '' json12 <<EOF
+echo '
 [
-    {"id": 1, "name": "Ken", "role": ["multi-role", "manager"], "dob": "2017-01-01"},
-    {"id": 2, "name": "Kenneth", "role": ["data specialist", "developer"], "dob": "2012-06-07"},
-    {"id": 3, "name": "Kenni", "role": ["vice-president"], "dob": "2014-11-20"}, 
-    {"id": 4, "name": "Kenny", "role": ["director"], "dob": "2001-02-27"}, 
-    {"id": 5, "name": "Kenyon", "role": ["identity manager", "manager"], "dob": "2005-09-15", "b": 100}
+  "OK: role matches expected value",
+  "Value mismatch: role=[\"data specialist\",\"developer\"]",
+  "OK: role matches expected value",
+  "OK: role matches expected value",
+  "OK: role matches expected value"
 ]
-EOF
+' | jq '.'
 
-read -r -d '' json13 <<EOF
-[
-    {"id": 1, "x": 10}, 
-    {
-        "id": 2.5, 
-        "x": null
-    },
-    {"id": 2}, 
-    {"id": 3, "x": 0}
-]
-EOF
+jq '
+def age_issues($age):
+  # normalize attempt
+  (try ($age|tonumber) catch null) as $n        # if $age test passes, then numeric .age value is passed as $n.. 
+  | [
+      (select($n == null) | {msg:"age not numeric", got:$age}),
+      (select($n != null and $n < 18) | {msg:"underage", value:$n})
+    ]
+  | map(.)  # drop nulls
+;
+
+. | map(
+    {id, name} as $idname
+    | (age_issues(.age)) as $issues
+    | if ($issues|length) > 0
+      then $idname + {errors: $issues}
+      else $idname + {age_ok: (.age|tonumber)}
+      end
+  )
+' users.json

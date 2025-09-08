@@ -6,6 +6,7 @@
       "multi-role",
       "manager"
     ],
+    "age": "tt20",
     "dob": "2017-01-01"
   },
   {
@@ -15,6 +16,7 @@
       "data specialist",
       "developer"
     ],
+    "age": 10,
     "dob": "2012-06-07"
   },
   {
@@ -23,6 +25,7 @@
     "role": [
       "vice-president"
     ],
+    "age": 18,
     "dob": "2014-11-20"
   },
   {
@@ -31,6 +34,7 @@
     "role": [
       "director"
     ],
+    "age": 20,
     "dob": "2001-02-27"
   },
   {
@@ -40,6 +44,7 @@
       "identity manager",
       "manager"
     ],
+    "age": 25,
     "dob": "2005-09-15",
     "b": 100
   }

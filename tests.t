@@ -1,4 +1,4 @@
-include "testlib1"; double 
+import "testlib1" as lib; lib::double 
 5
 10
 
@@ -45,6 +45,6 @@ null
 ["A","b","a","B","a"]
 {"a":3,"b":2}
 
-def greet($k; $g): {"msg": (.[$g] + " " + (.[$k] // "world"))}; greet("name"; "greeting")
+def greet($name; $greet): {"msg": (.[$greet] + " " + (.[$name] // "world"))}; greet("name"; "greeting")
 {"name":"Ken", "greeting": "Hi"}
 {"msg":"Hi Ken"}
