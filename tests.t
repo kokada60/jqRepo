@@ -17,12 +17,34 @@ include "testlib1"; group_by_key_module("role"; "name")
 [{"role":"admin","name":["Katee the admin","Kiera the admin","Kzy the admin"]},{"role":"staff","name":["Kai the staff","Kim the staff"]}]
 
 ## testing a module function that allows filter to be passed in as a parameter 
-include "testlib1"; update_field("yrs"; . * 3)
-{"name":"clark county","yrs":5}
-{"name":"clark county","yrs":15}
+include "testlib1"; update_field("yrs"; . * 3) | update_field("name"; . + " test")
+{"name":"CLARK COUNTY","yrs":5}
+{"name":"CLARK COUNTY test","yrs":15}
 
 ## testing a module function that allows filter to be passed in as a parameter 
 include "testlib1"; update_field("name"; . + " test")
 {"name":"clark county","yrs":5}
 {"name":"clark county test","yrs":5}
 
+## assuring all role nodes at any level are of array type... 
+all(.users[]; .. | .role? | select( . !=  null) | type == "array") 
+{"users":[{"role":["manager"]}, {"role":["analyst", "dev"]}, { "student": {"name": "test", "role": ["staff"]}} ]}
+true
+
+## checking for length and presence of an element in the array simulateneously...
+any(.. | .role? | select(. != null) | ( length > 1 and any( . == "staff"))) 
+{"users":[{"role":["staff"]}, {"role":["analyst", "dev"]}, { "student": {"name": "test", "role": ["dev", "staff", "admin"]}} ]}
+true
+
+reduce range(1;6) as $x (0; . + $x) 
+null 
+15
+
+# Reduce an array to occurrence of each element down_cased, accumulated as a JSON... 
+(reduce (.[] | ascii_downcase) as $w ({}; .[$w] += 1) // .)
+["A","b","a","B","a"]
+{"a":3,"b":2}
+
+def greet($k; $g): {"msg": (.[$g] + " " + (.[$k] // "world"))}; greet("name"; "greeting")
+{"name":"Ken", "greeting": "Hi"}
+{"msg":"Hi Ken"}

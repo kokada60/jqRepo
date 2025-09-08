@@ -13,5 +13,5 @@ def group_by_key_module($k; $g):
       ($g): (map(.[$g]) | sort_by(.))
     })
   | sort_by(.[$k]);
- def update_field($k; f):
+def update_field($k; f):
   .[($k)] |= (. | f);
