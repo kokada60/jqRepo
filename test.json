@@ -1,0 +1,39 @@
+[{
+  "offset": 3,
+  "length": 3,
+  "string": "bbb",
+  "captures": [
+    {
+      "offset": 3,
+      "length": 1,
+      "string": "b",
+      "name": "triplet"
+    }
+  ]
+},
+{
+  "offset": 6,
+  "length": 3,
+  "string": "ccc",
+  "captures": [
+    {
+      "offset": 6,
+      "length": 1,
+      "string": "c",
+      "name": "triplet"
+    }
+  ]
+},
+{
+  "offset": 9,
+  "length": 4,
+  "string": "aaaa",
+  "captures": [
+    {
+      "offset": 9,
+      "length": 1,
+      "string": "a",
+      "name": "triplet"
+    }
+  ]
+}]

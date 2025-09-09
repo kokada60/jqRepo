@@ -32,8 +32,12 @@ all(.users[]; .. | .role? | select( . !=  null) | type == "array")
 true
 
 ## checking for length and presence of an element in the array simulateneously...
-any(.. | .role? | select(. != null) | ( length > 1 and any( . == "staff"))) 
-{"users":[{"role":["staff"]}, {"role":["analyst", "dev"]}, { "student": {"name": "test", "role": ["dev", "staff", "admin"]}} ]}
+# all(.. | .role? | select(. != null) | ( length > 1 and any(map( . == "staff")))) 
+# {"users":[{"role":["staff"]}, {"role":["analyst", "dev", "staff"]}, { "student": {"name": "test"}, "role": ["dev", "staff", "admin"]} ]}
+# true
+
+map( . | .role | any(. == "staff"))| all(.)
+[{"role":["staff"]}, {"role":["analyst", "dev", "staff"]}, { "role": ["dev", "staff", "admin"]} ]
 true
 
 reduce range(1;6) as $x (0; . + $x) 
