@@ -1,42 +1,25 @@
 [{
-  "offset": 3,
-  "length": 3,
-  "string": "bbb",
-  "comment": "This is not a test. But it is of course a test. Testing sucks.",
-  "captures": [
-    {
-      "offset": 3,
-      "length": 1,
-      "string": "b",
-      "name": "triplet"
-    }
-  ]
+  "id": 1,
+  "name": "Ken",
+  "tested": 3,
+  "comment": "  This is not a test. But it is of course a test. Testing sucks."
 },
-{
-  "offset": 6,
-  "length": 3,
-  "string": "ccc",
-  "comment": "This is a test. But it is not of course a test. I advocate testless schooling.",
-  "captures": [
-    {
-      "offset": 6,
-      "length": 1,
-      "string": "c",
-      "name": "triplet"
-    }
-  ]
+{  
+  "id": 2,
+  "name": "Alice",
+  "tested": 2,
+  "comment": "  This is a test. But it is not of course a test. I advocate testless schooling."
 },
-{
-  "offset": 9,
-  "length": 4,
-  "string": "aaaa",
-  "comment": "I only advocate testing in a cooking school. I mean you have to eat dishes that graduate would cook.",
-  "captures": [
-    {
-      "offset": 9,
-      "length": 1,
-      "string": "a",
-      "name": "triplet"
-    }
-  ]
-}]
+{  
+  "id": 3,
+  "name": "Bob",
+  "tested": 10,
+  "comment": "  I love school!!"
+},
+{  
+  "id": 4,
+  "name": "Charlie",
+  "tested": 4,
+  "comment": "  I only advocate testing in a cooking school. I mean you have to eat dishes that graduate would cook."
+}
+]
