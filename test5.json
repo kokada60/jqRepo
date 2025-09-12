@@ -1,0 +1,10 @@
+{"resources": [
+{"id": 1, "kind": [{"apptype": "widget"}, {"apptype": "applet"}, {"apptype": "mobile app"}], 
+    "events":[
+        {"action": "create", "user_id": 1, "ts": 13}, 
+        {"action": "delete", "user_id": 1, "ts": "13a"}, 
+        {"action": "restore", "user_id": 1, "ts": "13b"}
+        ]}, 
+    {"id": 2, "kind": {"apptype": "widget"}, "events": [{"action": "create", "user_id": 1, "ts": 14}, {"action": "destroy", "user_id": 1, "ts": 15}]}
+]
+}
