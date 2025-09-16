@@ -64,5 +64,5 @@
 # jq -n '10, 20, 30 | . * 2, . * 3, . + 4, . / 5 '  # RHS applies a series of function at the same level to each list element.s
 # jq -n '[{id: 10}, {id:20}, {id:30}] | map({dbl: (.id * 2), trip: (.id * 3), plus4:(.id + 4), div5:(.id / 5)})'  # RHS applies a series of function at the same level to each list element.s
 # jq -n 'range(1;4) | {id: ., value: ("item " + (. | tostring))}' | jq -s '.'  # In the filter, '.' refers to each element in the array. 
-#jq -n '[[0], [0, 1], [2, 1, 0]] | .[] as [$a, $b, $c] | [$a, $b, $c]'  # This works. .[] destructures the input arrays 
+jq -n '[[0], [0, 1], [2, 1, 0]] | .[] as [$a, $b, $c] | [$a, $b, $c]'  # This works. .[] destructures the input arrays 
 ## and assigns first two elements into $a and $b.

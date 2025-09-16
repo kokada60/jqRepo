@@ -54,11 +54,15 @@
 # jq -n '[1, [2, [3]]] | [recurse(.[]?) | scalars]' 
 #jq -n '[1,2,3] | reduce .[] as $x ( 0; . + $x)'
 
-# jq -n '[1, [2, [3]]] | [recurse(.[]?) | scalars] | reduce .[] as $x (0; . + $x)' 
+#jq -n '[1, [2, [3]]] | [recurse(.[]?) | scalars] | reduce .[] as $x (0; . + $x)' 
 # jq -n '[1,2,3] | [repeat(.*2, error)?]'
 #echo 1 | jq '[., repeat(if . < 100 then .*2 else error end)?]'
 
 # Factorial via state tuple [n, acc], stopping when n < 1
 #echo 4 | jq '[.,1] | until(.[0] < 1; [.[0]-1, .[1]*.[0]]) '
 
-jq -n '5 | [., 1] | until(.[0] < 1; [.[0]-1, .[0] + 1])'
+#echo 1 | jq '[while(. < 1000; . * 2)]'
+#printf '%s\n' '"file.tar.gz.gz.gz.gz"' | jq 'while(endswith(".gz"); rtrimstr(".gz"))'
+printf '%s\n' '"file.jpg.tar.gz.gz.gz.gz"' | jq 'while(endswith(".gz") or endswith(".tar"); sub("\\.[a-z]+$"; ""))'
+printf '%s\n' '"file.jpg.tar.gz.gz.gz.gz"' | jq 'while(endswith(".gz") or endswith(".tar"); sub("\\.[a-z]+$"; "")) | sub("\\.[a-z]+$"; "")'  # One extra sub to 'substitute the last suffix.'
+printf '%s\n' '"file.jpg.tar.gz.gz.gz.gz"'  | jq 'until(( endswith(".tar") | not and endswith(".gz") | not ); gsub("\\.[a-z]+$"; ""))'
